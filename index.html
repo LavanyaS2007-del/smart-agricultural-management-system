@@ -1,0 +1,1101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101713">
+    <title>Smart Agriculture | Farm Intelligence</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">⌘</div>
+            <div>
+                <div class="brand-name">Smart Agriculture</div>
+                <div class="brand-caption">FARM INTELLIGENCE</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="nav-label">Workspace</div>
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-link active">
+                    <span class="nav-icon">▦</span> Dashboard
+                </a>
+                <a href="#crops" class="nav-link">
+                    <span class="nav-icon">♧</span> Crop Management
+                </a>
+                <a href="#my-crops" class="nav-link">
+                    <span class="nav-icon">❧</span> My Crops
+                </a>
+                <a href="#recommendations" class="nav-link">
+                    <span class="nav-icon">✧</span> Recommendations
+                </a>
+                <a href="#calendar" class="nav-link">
+                    <span class="nav-icon">▣</span> Farming Calendar
+                </a>
+                <a href="#analytics" class="nav-link">
+                    <span class="nav-icon">⌁</span> Analytics
+                </a>
+                
+<a href="#fertilizers" class="nav-link">
+    <span class="nav-icon">♧</span> Fertilizer Providers
+</a>
+
+            </nav>
+        </div>
+
+        <div class="sidebar-footer">
+            <strong>Intelligent farming</strong>
+            <p>Crop knowledge and data-driven agricultural guidance in one place.</p>
+        </div>
+    </aside>
+
+    <main class="main-content" id="dashboard">
+
+        <header class="topbar">
+            <div class="breadcrumb">Workspace / Dashboard</div>
+            <div class="topbar-right">
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    System interface
+                </div>
+            </div>
+        </header>
+
+        <section class="page-heading">
+            <div>
+                <div class="eyebrow">AGRICULTURAL OVERVIEW</div>
+                <h1>Farm intelligence dashboard</h1>
+                <p class="page-description">
+                    Manage your crops, understand their growth stages,
+                    and access agricultural information from one workspace.
+                </p>
+            </div>
+            <button class="primary-button" id="explore-crops">
+                + Explore crops
+            </button>
+        </section>
+
+        <section class="stats-grid" aria-label="Crop dataset overview">
+            <article class="stat-card">
+                <div class="stat-label">Available crop profiles</div>
+                <div class="stat-value" id="crop-count">—</div>
+                <div class="stat-note">Retrieved from the crop database</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Crop knowledge</div>
+                <div class="stat-value">Centralized</div>
+                <div class="stat-note">Water, growth and farming information</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Monitoring approach</div>
+                <div class="stat-value">Data-driven</div>
+                <div class="stat-note">Software-based agricultural guidance</div>
+            </article>
+        </section>
+
+        <section class="section" id="crops">
+            <div class="section-heading">
+                <div>
+                    <h2>Crop knowledge library</h2>
+                    <p class="section-description">
+                        Browse the crop profiles currently available in the system.
+                    </p>
+                </div>
+                <button class="secondary-button" id="refresh-crops">
+                    ↻ Refresh
+                </button>
+            </div>
+
+            <div class="crop-grid" id="crop-list" aria-live="polite">
+                <div class="loading-state">Loading crop information...</div>
+            </div>
+        </section>
+
+<section class="section" id="add-crop">
+    <div class="section-heading">
+        <div>
+            <h2>Add Crop to My Farm</h2>
+            <p class="section-description">
+                Select a crop and enter your planting details to track its growth.
+            </p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <form id="add-crop-form">
+            <div class="form-group">
+                <label for="farmer-crop-select">Select Crop</label>
+                <select id="farmer-crop-select" required>
+                    <option value="">Choose a crop</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sowing-date">Sowing / Planting Date</label>
+                <input type="date" id="sowing-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="crop-area">Farming Area (acres)</label>
+                <input
+                    type="number"
+                    id="crop-area"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="e.g. 1.5"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="primary-button">
+                Save Crop
+            </button>
+
+            <p id="add-crop-message" aria-live="polite"></p>
+        </form>
+    </div>
+</section>
+
+<section class="section" id="my-crops">
+    <div class="section-heading">
+        <div>
+            <h2>My Crops</h2>
+            <p class="section-description">
+                Monitor your crops, growth stages and estimated harvest dates.
+            </p>
+        </div>
+        <button class="secondary-button" id="refresh-my-crops">
+            ↻ Refresh
+        </button>
+    </div>
+
+    <div class="crop-grid" id="my-crop-list" aria-live="polite">
+        <div class="loading-state">Loading your crops...</div>
+    </div>
+</section>
+
+
+<section class="section" id="recommendations">
+    <div class="panel">
+        <div class="eyebrow">FARM INTELLIGENCE</div>
+        <h2 style="margin-top: 8px;">Smart recommendations</h2>
+        <p class="page-description">
+            Personalized farming guidance based on your registered
+            crops, current growth stages, water requirements, and
+            estimated harvest dates.
+        </p>
+
+        <div id="recommendationSummary" class="crop-details">
+            <p>Loading your farming recommendations...</p>
+        </div>
+
+        <div id="recommendationList"></div>
+    </div>
+</section>
+
+
+        
+<section class="section" id="calendar">
+    <div class="section-heading">
+        <div>
+            <h2>Farming Calendar</h2>
+            <p class="section-description">
+                Track crop growth and estimated harvest dates automatically.
+            </p>
+        </div>
+
+        <button class="secondary-button" id="refresh-calendar">
+            ↻ Refresh
+        </button>
+    </div>
+
+    <div class="panel">
+        <div id="calendar-content" aria-live="polite">
+            <div class="loading-state">
+                Loading your farming calendar...
+            </div>
+        </div>
+    </div>
+</section>
+
+
+        
+<section class="section" id="analytics">
+    <div class="panel">
+        <h2>Analytics Dashboard</h2>
+        <p class="section-description">
+            Monitor crop distribution, farming area,
+            growth progress and upcoming harvests.
+        </p>
+
+        <div class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-label">Total Crops Planted</div>
+                <div class="stat-value" id="analytics-crop-count">0</div>
+                <div class="stat-note">Currently registered crops</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Total Farming Area</div>
+                <div class="stat-value" id="analytics-area">0 acres</div>
+                <div class="stat-note">Area allocated to crops</div>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-label">Upcoming Harvests</div>
+                <div class="stat-value" id="analytics-harvest-count">0</div>
+                <div class="stat-note">Estimated future harvests</div>
+            </article>
+        </div>
+
+        <div class="panel">
+            <h3>Crop Distribution</h3>
+            <p class="section-description">
+                Crop-wise distribution will appear here.
+            </p>
+            <div id="analytics-crop-distribution">
+    <canvas id="cropDistributionChart"></canvas>
+</div>
+        </div>
+
+        <div class="panel">
+            <h3>Growth Stage Overview</h3>
+            <div id="analytics-growth-overview">
+                Growth stage information will appear here.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="fertilizers" class="content-section">
+    <div class="section-header">
+        <div>
+            <h2>Fertilizer Providers</h2>
+            <p>Monitor fertilizer availability and contact suppliers.</p>
+        </div>
+        <button onclick="loadFertilizerProviders()">Refresh Stock</button>
+    </div>
+
+    <div id="fertilizerAlerts"></div>
+
+    <div id="fertilizerProvidersList">
+        <p>Loading fertilizer information...</p>
+    </div>
+</section>
+
+
+        <footer class="footer-note">
+            Smart Agriculture Monitoring System ·
+            Software-based agricultural decision support
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    const cropList = document.getElementById("crop-list");
+    const cropCount = document.getElementById("crop-count");
+
+    const cropIcons = {
+        tomato: "🍅",
+        rice: "🌾",
+        wheat: "🌿",
+        cotton: "☁",
+        sugarcane: "🎋",
+        jute: "🌱"
+    };
+
+    async function loadCrops() {
+        cropList.innerHTML =
+            '<div class="loading-state">Loading crop information...</div>';
+
+        try {
+            const response = await fetch("http://localhost:3000/api/crops");
+
+            if (!response.ok) {
+                throw new Error("The crop API returned an error.");
+            }
+
+            const crops = await response.json();
+
+            cropCount.textContent = String(crops.length);
+
+            if (crops.length === 0) {
+                cropList.innerHTML =
+                    '<div class="empty-state">No crop profiles are available yet.</div>';
+                return;
+            }
+
+            cropList.innerHTML = crops.map(crop => {
+                const name = String(crop.crop_name || "Crop");
+                const icon = cropIcons[name.toLowerCase()] || "🌱";
+
+                const water = crop.water_requirement || "Not specified";
+
+                const duration =
+                    crop.growth_duration_min != null &&
+                    crop.growth_duration_max != null
+                        ? `${crop.growth_duration_min}–${crop.growth_duration_max} days`
+                        : "Not specified";
+
+                return `
+                    <article class="crop-card">
+                        <div class="crop-card-top">
+                            <div class="crop-icon">${icon}</div>
+                            <span class="crop-tag">Crop profile</span>
+                        </div>
+
+                        <h3>${escapeHTML(name)}</h3>
+
+                        <p class="crop-meta">
+                            Agricultural knowledge and growth information
+                        </p>
+
+                        <div class="crop-details">
+                            <div>
+                                <div class="detail-label">Water requirement</div>
+                                <div class="detail-value">
+                                    ${escapeHTML(water)}
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="detail-label">Growth duration</div>
+                                <div class="detail-value">
+                                    ${escapeHTML(duration)}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+
+        } catch (error) {
+            cropCount.textContent = "—";
+
+            cropList.innerHTML = `
+                <div class="error-state">
+                    Unable to load crop information.
+                    <p style="margin-top: 8px; color: var(--text-secondary);">
+                        Make sure the Express server is running on port 3000,
+                        then select Refresh.
+                    </p>
+                </div>
+            `;
+
+            console.error("Crop loading error:", error);
+        }
+    }
+
+    function escapeHTML(value) {
+        return String(value).replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[character]);
+    }
+
+    document.getElementById("refresh-crops")
+        .addEventListener("click", loadCrops);
+
+    document.getElementById("explore-crops")
+        .addEventListener("click", () => {
+            document.getElementById("crops").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+    loadCrops();
+
+const myCropList = document.getElementById("my-crop-list");
+
+async function loadMyCrops() {
+    myCropList.innerHTML =
+        '<div class="loading-state">Loading your crops...</div>';
+
+    try {
+        const farmerId = 1; // Temporary demo farmer ID
+
+        const response = await fetch(
+            `http://localhost:3000/api/my-crops/${farmerId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to fetch farmer crops");
+        }
+
+        const crops = await response.json();
+
+        if (crops.length === 0) {
+            myCropList.innerHTML =
+                '<div class="empty-state">No crops added yet.</div>';
+            return;
+        }
+
+        myCropList.innerHTML = crops.map(crop => `
+            <article class="crop-card">
+                <div class="crop-card-top">
+                    <div class="crop-icon">🌱</div>
+                    <span class="crop-tag">My farm</span>
+                </div>
+
+                <h3>${escapeHTML(crop.crop_name)}</h3>
+
+<button
+    type="button"
+    class="delete-crop-btn"
+    onclick="deleteCrop(${crop.farmer_crop_id})">
+    🗑️ Delete Crop
+</button>
+
+                <p class="crop-meta">
+                    Area: ${escapeHTML(crop.crop_area_acres)} acres
+                </p>
+
+                <div class="crop-details">
+                    <div>
+                        <div class="detail-label">Sowing date</div>
+                        <div class="detail-value">
+                            ${formatDate(crop.sowing_date)}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="detail-label">Growth stage</div>
+                        <div class="detail-value" id="stage-${crop.farmer_crop_id}">
+                            Loading...
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="detail-label">Estimated harvest</div>
+                        <div class="detail-value" id="harvest-${crop.farmer_crop_id}">
+                            Loading...
+                        </div>
+                    </div>
+                </div>
+            </article>
+        `).join("");
+
+        await Promise.all(crops.map(async crop => {
+            const id = crop.farmer_crop_id;
+
+            try {
+                const [stageResponse, harvestResponse] = await Promise.all([
+                    fetch(`http://localhost:3000/api/crop-growth/${id}`),
+                    fetch(`http://localhost:3000/api/harvest-estimate/${id}`)
+                ]);
+
+                if (!stageResponse.ok || !harvestResponse.ok) {
+                    throw new Error("Unable to load crop details");
+                }
+
+                const stage = await stageResponse.json();
+                const harvest = await harvestResponse.json();
+
+                document.getElementById(`stage-${id}`).textContent =
+                    stage.stage_name || "Not available";
+
+                document.getElementById(`harvest-${id}`).textContent =
+                    `${formatDate(harvest.earliest_harvest_date)} – ${formatDate(harvest.latest_harvest_date)}`;
+
+            } catch (error) {
+                document.getElementById(`stage-${id}`).textContent =
+                    "Unavailable";
+                document.getElementById(`harvest-${id}`).textContent =
+                    "Unavailable";
+            }
+        }));
+
+    } catch (error) {
+        myCropList.innerHTML = `
+            <div class="error-state">
+                Unable to load your crops. Check the server and try again.
+            </div>
+        `;
+        console.error("My Crops error:", error);
+    }
+}
+
+async function deleteCrop(farmerCropId) {
+    const confirmed = confirm(
+        "Are you sure you want to delete this crop?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const response = await fetch(
+            `http://localhost:3000/api/farmer-crops/${farmerCropId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const responseText = await response.text();
+        console.log("Delete API status:", response.status);
+        console.log("Delete API response:", responseText);
+
+        let result = {};
+
+        try {
+            result = JSON.parse(responseText);
+        } catch {
+            throw new Error(
+                "Server response is not JSON. Check the server route."
+            );
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                result.error || result.message || "Could not delete crop."
+            );
+        }
+
+        alert("Crop deleted successfully!");
+
+        await loadMyCrops();
+        await loadFarmingCalendar();
+        await loadAnalytics();
+
+    } catch (error) {
+        console.error("Delete crop error:", error);
+        alert(error.message || "Unable to delete crop.");
+    }
+}
+
+
+function formatDate(value) {
+    if (!value) return "Not available";
+
+    const date = new Date(value);
+
+    return new Intl.DateTimeFormat("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        timeZone: "Asia/Kolkata"
+    }).format(date);
+}
+
+document.getElementById("refresh-my-crops")
+    .addEventListener("click", loadMyCrops);
+
+loadMyCrops();
+loadAnalytics();
+const calendarContent = document.getElementById("calendar-content");
+
+async function loadAnalytics() {
+    const farmerId = 1;
+
+    const cropCount = document.getElementById("analytics-crop-count");
+    const areaTotal = document.getElementById("analytics-area");
+    const harvestCount = document.getElementById("analytics-harvest-count");
+    const distribution = document.getElementById("analytics-crop-distribution");
+    const growthOverview = document.getElementById("analytics-growth-overview");
+
+    try {
+        const response = await fetch(
+            `http://localhost:3000/api/my-crops/${farmerId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load analytics crops");
+        }
+
+        const crops = await response.json();
+
+        cropCount.textContent = crops.length;
+
+        const totalArea = crops.reduce(
+            (total, crop) => total + Number(crop.crop_area_acres || 0),
+            0
+        );
+
+        areaTotal.textContent = `${totalArea.toFixed(2)} acres`;
+
+        if (crops.length === 0) {
+            harvestCount.textContent = "0";
+            distribution.textContent = "Add crops to view your distribution.";
+            growthOverview.textContent = "No crop growth data available.";
+            return;
+        }
+
+        const cropCounts = {};
+        crops.forEach(crop => {
+            cropCounts[crop.crop_name] =
+                (cropCounts[crop.crop_name] || 0) + 1;
+        });
+
+        
+const chartCanvas = document.getElementById("cropDistributionChart");
+
+if (window.cropDistributionChartInstance) {
+    window.cropDistributionChartInstance.destroy();
+}
+
+window.cropDistributionChartInstance = new Chart(chartCanvas, {
+    type: "pie",
+    data: {
+        labels: Object.keys(cropCounts),
+        
+datasets: [{
+    data: Object.values(cropCounts),
+    backgroundColor: [
+        "#2E7D32",
+        "#66BB6A",
+        "#A5D6A7",
+        "#8D9B45",
+        "#C5DDB8",
+        "#1B5E20"
+    ],
+    borderColor: "#FFFFFF",
+    borderWidth: 2,
+    hoverOffset: 8
+}]
+
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: "bottom"
+            }
+        }
+    }
+});
+
+
+        let upcomingHarvests = 0;
+        const stages = {};
+
+        await Promise.all(crops.map(async crop => {
+            const id = crop.farmer_crop_id;
+
+            try {
+                const [stageResponse, harvestResponse] = await Promise.all([
+                    fetch(`http://localhost:3000/api/crop-growth/${id}`),
+                    fetch(`http://localhost:3000/api/harvest-estimate/${id}`)
+                ]);
+
+                if (!stageResponse.ok || !harvestResponse.ok) {
+                    throw new Error("Unable to load crop details");
+                }
+
+                const stage = await stageResponse.json();
+                const harvest = await harvestResponse.json();
+
+                const stageName = stage.stage_name || "Not available";
+                stages[stageName] = (stages[stageName] || 0) + 1;
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const earliest = new Date(harvest.earliest_harvest_date);
+                const latest = new Date(harvest.latest_harvest_date);
+
+                if (
+                    !Number.isNaN(earliest.getTime()) &&
+                    !Number.isNaN(latest.getTime()) &&
+                    latest >= today
+                ) {
+                    upcomingHarvests++;
+                }
+            } catch (error) {
+                console.error(`Analytics crop ${id}:`, error);
+            }
+        }));
+
+        harvestCount.textContent = upcomingHarvests;
+
+        growthOverview.innerHTML = Object.entries(stages)
+            .map(([name, count]) => `
+                <p>${escapeHTML(name)}: ${count} crop(s)</p>
+            `)
+            .join("") || "Growth stage information unavailable.";
+
+    } catch (error) {
+        console.error("Analytics error:", error);
+        distribution.textContent = "Unable to load crop distribution.";
+        growthOverview.textContent = "Unable to load growth stages.";
+    }
+}
+
+async function loadFertilizerProviders() {
+    const list = document.getElementById("fertilizerProvidersList");
+    const alerts = document.getElementById("fertilizerAlerts");
+
+    list.innerHTML = "<p>Loading fertilizer stock...</p>";
+    alerts.innerHTML = "";
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/fertilizer-providers"
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to load fertilizer providers");
+        }
+
+        const providers = await response.json();
+
+        if (providers.length === 0) {
+            list.innerHTML = "<p>No fertilizer providers found.</p>";
+            return;
+        }
+
+        const lowStock = providers.filter(
+            item => item.fertilizer_id &&
+                    item.stock_status === "Low Stock"
+        );
+
+        if (lowStock.length > 0) {
+            alerts.innerHTML = `
+                <div class="fertilizer-alert">
+                    ⚠️ Low stock: ${lowStock.map(item =>
+                        `${item.fertilizer_name} (${item.stock_quantity} ${item.unit})`
+                    ).join(", ")}
+                </div>
+            `;
+        }
+
+        list.innerHTML = providers.map(item => `
+    <article class="fertilizer-card">
+        <h3>${item.provider_name}</h3>
+
+        <p>
+            <strong>Shop:</strong>
+            ${item.shop_name}
+        </p>
+
+        <p>
+            <strong>Phone:</strong>
+            <a href="tel:${item.phone}">${item.phone}</a>
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            ${item.email || "Not provided"}
+        </p>
+
+        <p>
+            <strong>Address:</strong>
+            ${item.address || "Not provided"}
+        </p>
+    </article>
+`).join("");
+    } catch (error) {
+        console.error("Fertilizer loading error:", error);
+        list.innerHTML = "<p>Unable to load fertilizer details. Please check the backend server.</p>";
+    }
+}
+
+async function loadFarmingCalendar() {
+    calendarContent.innerHTML =
+        '<div class="loading-state">Loading farming calendar...</div>';
+
+    try {
+        const farmerId = 1;
+
+        const response = await fetch(
+            `http://localhost:3000/api/my-crops/${farmerId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Could not load crops");
+        }
+
+        const crops = await response.json();
+
+        if (crops.length === 0) {
+            calendarContent.innerHTML =
+                '<div class="empty-state">Add a crop to view your farming calendar.</div>';
+            return;
+        }
+
+        const details = await Promise.all(crops.map(async crop => {
+            const id = crop.farmer_crop_id;
+
+            const [stageResponse, harvestResponse] = await Promise.all([
+                fetch(`http://localhost:3000/api/crop-growth/${id}`),
+                fetch(`http://localhost:3000/api/harvest-estimate/${id}`)
+            ]);
+
+            if (!stageResponse.ok || !harvestResponse.ok) {
+                throw new Error("Could not load crop timeline");
+            }
+
+            const stage = await stageResponse.json();
+            const harvest = await harvestResponse.json();
+
+            return { crop, stage, harvest };
+        }));
+
+        calendarContent.innerHTML = details.map(item => `
+            <article class="crop-card">
+                <div class="crop-card-top">
+                    <div class="crop-icon">🌱</div>
+                    <span class="crop-tag">Growing</span>
+                </div>
+
+                <h3>${escapeHTML(item.crop.crop_name)}</h3>
+
+                   <button
+                     type="button"
+                       class="delete-crop-btn"
+                       onclick="deleteCrop(${item.crop.farmer_crop_id})">
+                      🗑️ Delete Crop
+                   </button>
+
+                <div class="crop-details">
+                    <div>
+                        <div class="detail-label">Sowing date</div>
+                        <div class="detail-value">
+                            ${formatDate(item.crop.sowing_date)}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="detail-label">Current growth stage</div>
+                        <div class="detail-value">
+                            ${escapeHTML(item.stage.stage_name || "Not available")}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="detail-label">Estimated earliest harvest</div>
+                        <div class="detail-value">
+                            ${formatDate(item.harvest.earliest_harvest_date)}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="detail-label">Estimated latest harvest</div>
+                        <div class="detail-value">
+                            ${formatDate(item.harvest.latest_harvest_date)}
+                        </div>
+                    </div>
+                </div>
+            </article>
+        `).join("");
+
+    } catch (error) {
+        console.error("Farming calendar error:", error);
+
+        calendarContent.innerHTML =
+            '<div class="error-state">Unable to load the farming calendar. Check your server.</div>';
+    }
+}
+
+document.getElementById("refresh-calendar")
+    .addEventListener("click", loadFarmingCalendar);
+
+loadFarmingCalendar();
+loadAnalytics();
+const cropSelect = document.getElementById("farmer-crop-select");
+const addCropForm = document.getElementById("add-crop-form");
+const addCropMessage = document.getElementById("add-crop-message");
+
+// Load available crops into the selection box
+async function loadCropOptions() {
+    try {
+        const response = await fetch("http://localhost:3000/api/crops");
+
+        if (!response.ok) {
+            throw new Error("Could not load crops");
+        }
+
+        const crops = await response.json();
+
+        cropSelect.innerHTML =
+            '<option value="">Choose a crop</option>' +
+            crops.map(crop => `
+                <option value="${crop.crop_id}">
+                    ${escapeHTML(crop.crop_name)}
+                </option>
+            `).join("");
+
+    } catch (error) {
+        addCropMessage.textContent =
+            "Unable to load crops. Check your server.";
+        console.error(error);
+    }
+}
+
+// Save the selected crop
+addCropForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    addCropMessage.textContent = "Saving crop...";
+
+    try {
+        const cropId = Number(cropSelect.value);
+        const sowingDate = document.getElementById("sowing-date").value;
+        const cropArea = Number(document.getElementById("crop-area").value);
+
+        if (!cropId || !sowingDate || !Number.isFinite(cropArea) || cropArea <= 0) {
+            addCropMessage.textContent =
+                "Please enter valid crop details.";
+            return;
+        }
+
+        const response = await fetch("http://localhost:3000/api/farmer-crops", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            
+body: JSON.stringify({
+    farmer_id: 1,
+    area_id: 1,
+    crop_id: cropId,
+    sowing_date: sowingDate,
+    crop_area_acres: cropArea
+})
+
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || "Could not save crop");
+        }
+
+        addCropMessage.textContent =
+            "Crop saved successfully! 🌱";
+
+        addCropForm.reset();
+
+        await Promise.all([
+            loadMyCrops(),
+            loadFarmingCalendar(),
+            loadAnalytics(),
+            loadFertilizerProviders()
+        ]);
+
+    } catch (error) {
+        addCropMessage.textContent =
+            error.message || "Unable to save crop.";
+        console.error("Save crop error:", error);
+    }
+});
+
+loadCropOptions();
+
+async function loadCropRecommendations() {
+    const summary = document.getElementById("recommendationSummary");
+    const list = document.getElementById("recommendationList");
+
+    if (!summary || !list) return;
+
+    summary.innerHTML = "<p>Loading crop recommendations...</p>";
+    list.innerHTML = "";
+
+    try {
+        const response = await fetch("http://localhost:3000/api/my-crops/1");
+
+        if (!response.ok) {
+            throw new Error("Unable to load crops");
+        }
+
+        const crops = await response.json();
+
+        if (crops.length === 0) {
+            summary.innerHTML = "<p>Add a crop to receive recommendations.</p>";
+            return;
+        }
+
+        const recommendations = await Promise.all(
+            crops.map(async crop => {
+                const [growthResponse, harvestResponse] = await Promise.all([
+                    fetch(`http://localhost:3000/api/crop-growth/${crop.farmer_crop_id}`),
+                    fetch(`http://localhost:3000/api/harvest-estimate/${crop.farmer_crop_id}`)
+                ]);
+
+                if (!growthResponse.ok || !harvestResponse.ok) {
+                    throw new Error("Unable to load crop details");
+                }
+
+                const growth = await growthResponse.json();
+                const harvest = await harvestResponse.json();
+
+                const advice = [];
+
+                if (growth.growth_stage === "Not yet sown") {
+                    advice.push("Prepare the field and follow the crop's sowing guidance.");
+                } else if (
+                    growth.growth_stage === "Stage not defined for this crop age"
+                ) {
+                    advice.push("Review the crop growth stages and update the farming plan.");
+                } else {
+                    advice.push(
+                        `Current stage: ${growth.growth_stage}. Follow suitable care for this stage.`
+                    );
+                }
+
+                if (crop.water_requirement === "High") {
+                    advice.push("Water demand is high. Check soil moisture before irrigation.");
+                } else if (crop.water_requirement === "Medium") {
+                    advice.push("Maintain balanced irrigation and check soil moisture regularly.");
+                } else if (crop.water_requirement === "Low") {
+                    advice.push("Avoid overwatering; check soil moisture before watering.");
+                }
+
+                advice.push(
+                    `Estimated harvest window: ${formatDate(harvest.earliest_harvest_date)} – ${formatDate(harvest.latest_harvest_date)}.`
+                );
+
+                return { crop, growth, advice };
+            })
+        );
+
+        summary.innerHTML = `
+            <div>
+                <div class="detail-label">Registered crops</div>
+                <div class="detail-value">${crops.length}</div>
+            </div>
+        `;
+
+        list.innerHTML = recommendations.map(item => `
+            <article class="crop-card">
+                <h3>${escapeHTML(item.crop.crop_name)}</h3>
+                <p><strong>Growth stage:</strong>
+                    ${escapeHTML(item.growth.growth_stage || "Not available")}
+                </p>
+                <p><strong>Water requirement:</strong>
+                    ${escapeHTML(item.crop.water_requirement || "Unknown")}
+                </p>
+                <h4>Recommended actions</h4>
+                <ul>
+                    ${item.advice.map(advice =>
+                        `<li>${escapeHTML(advice)}</li>`
+                    ).join("")}
+                </ul>
+            </article>
+        `).join("");
+
+    } catch (error) {
+        console.error("Crop recommendations error:", error);
+        summary.innerHTML =
+            "<p>Unable to load recommendations. Check the server and try again.</p>";
+    }
+}
+loadCropRecommendations();
+</script>
+
+</body>
+</html>
